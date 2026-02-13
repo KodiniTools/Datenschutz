@@ -356,48 +356,127 @@
     </article>
   </main>
 
+  <!-- ============================================================
+       KodiniTools – Sprach-Bridge  (SSI ↔ Vue-i18n)
+       Synchroner Block – läuft VOR allen Modulen
+       ============================================================ -->
   <script>
-    // --- Persisted Theme ---
-    const root = document.documentElement;
-    const btnTheme = document.getElementById('btn-theme');
-    const themeIcon = document.getElementById('theme-icon');
-    const savedTheme = localStorage.getItem('kt-theme');
-    if(savedTheme){ root.setAttribute('data-theme', savedTheme); if(savedTheme==='dark'){ themeIcon.classList.replace('fa-moon','fa-sun'); } }
-    btnTheme.addEventListener('click', ()=>{
-      const cur = root.getAttribute('data-theme') || 'light';
-      const next = cur === 'light' ? 'dark' : 'light';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('kt-theme', next);
-      if(next==='dark'){ themeIcon.classList.replace('fa-moon','fa-sun'); } else { themeIcon.classList.replace('fa-sun','fa-moon'); }
-    });
+  (function () {
+    'use strict';
 
-    // --- Language Switch ---
-    const btnDe=document.getElementById('btn-de');
-    const btnEn=document.getElementById('btn-en');
-    const de=document.getElementById('content-de');
-    const en=document.getElementById('content-en');
+    var _suppressDispatch = false;
+    var LOCALE_KEY = 'locale';
+    var SUPPORTED  = ['de', 'en'];
+    var FALLBACK   = 'de';
 
-    function setLang(lang){
-      if(lang==='de'){
-        de.classList.add('active'); en.classList.remove('active');
-        btnDe.classList.add('active'); btnEn.classList.remove('active');
-        btnDe.setAttribute('aria-pressed','true'); btnEn.setAttribute('aria-pressed','false');
-        document.documentElement.lang='de';
-        localStorage.setItem('kt-lang','de');
+    // --- Theme Persistence (read-only, SSI-Nav handles toggle) ---
+    var savedTheme = localStorage.getItem('kt-theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // ==========================================================
+    //  Helpers
+    // ==========================================================
+
+    /** Locale aus localStorage lesen, Fallback auf Browser-Sprache */
+    function getCurrentLocale() {
+      var stored = localStorage.getItem(LOCALE_KEY);
+      if (stored && SUPPORTED.indexOf(stored) !== -1) return stored;
+      var nav = (navigator.language || '').slice(0, 2).toLowerCase();
+      return SUPPORTED.indexOf(nav) !== -1 ? nav : FALLBACK;
+    }
+
+    /** document.lang + <meta http-equiv="content-language"> setzen */
+    function setDocumentLang(lang) {
+      document.documentElement.lang = lang;
+      var meta = document.querySelector('meta[http-equiv="content-language"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('http-equiv', 'content-language');
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', lang);
+    }
+
+    /**
+     * SSI-Elemente mit data-lang-* Attributen aktualisieren
+     *  – data-lang="de|en"          → Element ein-/ausblenden
+     *  – data-lang-de="…" / data-lang-en="…"  → textContent setzen
+     */
+    function updateDataLangElements(lang) {
+      document.querySelectorAll('[data-lang]').forEach(function (el) {
+        el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+      });
+      document.querySelectorAll('[data-lang-' + lang + ']').forEach(function (el) {
+        el.textContent = el.getAttribute('data-lang-' + lang);
+      });
+    }
+
+    /** Seitenspezifisch: .lang-Sektionen (content-de / content-en) umschalten */
+    function toggleLocalContent(lang) {
+      var de = document.getElementById('content-de');
+      var en = document.getElementById('content-en');
+      if (!de || !en) return;
+      de.classList.toggle('active', lang === 'de');
+      en.classList.toggle('active', lang === 'en');
+    }
+
+    /** Vue-i18n Locale live setzen (Composition- & Options-API) */
+    function setVueLocale(lang) {
+      var i18n = window.__VUE_I18N_SYMBOL__;
+      if (!i18n || !i18n.global) return;
+      var loc = i18n.global.locale;
+      if (loc && typeof loc === 'object' && 'value' in loc) {
+        loc.value = lang;
       } else {
-        en.classList.add('active'); de.classList.remove('active');
-        btnEn.classList.add('active'); btnDe.classList.remove('active');
-        btnEn.setAttribute('aria-pressed','true'); btnDe.setAttribute('aria-pressed','false');
-        document.documentElement.lang='en';
-        localStorage.setItem('kt-lang','en');
+        i18n.global.locale = lang;
       }
     }
 
-    const savedLang = localStorage.getItem('kt-lang');
-    if(savedLang){ setLang(savedLang); }
+    /** Alles anwenden: localStorage + DOM + lokale Sektionen */
+    function applyLocale(lang) {
+      localStorage.setItem(LOCALE_KEY, lang);
+      setDocumentLang(lang);
+      updateDataLangElements(lang);
+      toggleLocalContent(lang);
+    }
 
-    btnDe.addEventListener('click', ()=>setLang('de'));
-    btnEn.addEventListener('click', ()=>setLang('en'));
+    // ==========================================================
+    //  Phase 1: Synchron – sofort anwenden (vor Modulen)
+    // ==========================================================
+    var currentLang = getCurrentLocale();
+    applyLocale(currentLang);
+
+    // ==========================================================
+    //  Phase 2: DOMContentLoaded – SSI-Elemente vollständig geparst
+    // ==========================================================
+    document.addEventListener('DOMContentLoaded', function () {
+      updateDataLangElements(currentLang);
+      toggleLocalContent(currentLang);
+      setVueLocale(currentLang);
+
+      _suppressDispatch = true;
+      window.dispatchEvent(new CustomEvent('language-changed', {
+        detail: { lang: currentLang }
+      }));
+      _suppressDispatch = false;
+    });
+
+    // ==========================================================
+    //  Phase 3: Runtime – externes Event empfangen (kein Reload)
+    // ==========================================================
+    window.addEventListener('language-changed', function (e) {
+      if (_suppressDispatch) return;
+
+      var lang = e && e.detail && e.detail.lang;
+      if (!lang || SUPPORTED.indexOf(lang) === -1) return;
+
+      _suppressDispatch = true;
+      applyLocale(lang);
+      setVueLocale(lang);
+      _suppressDispatch = false;
+    });
+
+  })();
   </script>
 
 <!--#include virtual="/partials/footer.html" -->
