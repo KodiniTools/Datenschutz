@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Datenschutzerklärung / Privacy Policy – KodiniTools</title>
   <link rel="canonical" href="https://kodinitools.com/datenschutz/"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="/fontawesome/css/solid.min.css" />
   <style>
+    @font-face {
+      font-family: 'Supreme';
+      src: url('/fonts/Supreme-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
     :root{
       --bg:#ffffff; --card:#ffffff; --surface:#f8fafc;
       --text:#1e293b; --muted:#64748b; --border:#e2e8f0;
@@ -19,7 +27,7 @@
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+    body{font-family:'Supreme',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
          color:var(--text); background:var(--bg); line-height:1.6; transition:background .2s,color .2s}
     .navbar{position:fixed;top:0;left:0;right:0;background:color-mix(in oklab, var(--card) 92%, transparent);
             backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid var(--border); z-index:10}
@@ -53,20 +61,7 @@
   </style>
 </head>
 <body>
-<nav class="navbar" aria-label="Top navigation">
-    <div class="nav-container">
-      <a class="brand" href="https://kodinitools.com/" aria-label="Zur Startseite / Back to homepage">
-        <i class="fa-solid fa-shield-halved"></i> KodiniTools
-      </a>
-      <div class="controls" role="group" aria-label="Switchers">
-        <button id="btn-de" class="btn active" type="button" aria-pressed="true">DE</button>
-        <button id="btn-en" class="btn" type="button" aria-pressed="false">EN</button>
-        <button id="btn-theme" class="btn icon-btn" type="button" title="Theme wechseln / Toggle theme" aria-label="Toggle theme">
-          <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </button>
-      </div>
-    </div>
-  </nav>
+<!--#include virtual="/partials/nav.html" -->
 
   <main>
     <article class="card">
@@ -401,5 +396,8 @@
     btnDe.addEventListener('click', ()=>setLang('de'));
     btnEn.addEventListener('click', ()=>setLang('en'));
   </script>
+
+<!--#include virtual="/partials/footer.html" -->
+<!--#include virtual="/partials/cookie-banner.html" -->
 </body>
 </html>
