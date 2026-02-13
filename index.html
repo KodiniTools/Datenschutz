@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Datenschutzerklärung / Privacy Policy – KodiniTools</title>
+  <link rel="canonical" href="https://kodinitools.com/datenschutz/"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --card:#ffffff; --surface:#f8fafc;
+      --text:#1e293b; --muted:#64748b; --border:#e2e8f0;
+      --primary:#2563eb; --primary-2:#1d4ed8; --shadow:rgba(0,0,0,.08);
+    }
+    [data-theme="dark"]{
+      --bg:#0f172a; --card:#111827; --surface:#0b1222;
+      --text:#e5e7eb; --muted:#a5b4fc; --border:#1f2937;
+      --primary:#60a5fa; --primary-2:#93c5fd; --shadow:rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+         color:var(--text); background:var(--bg); line-height:1.6; transition:background .2s,color .2s}
+    .navbar{position:fixed;top:0;left:0;right:0;background:color-mix(in oklab, var(--card) 92%, transparent);
+            backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid var(--border); z-index:10}
+    .nav-container{max-width:1200px;margin:0 auto;padding:0 1.5rem;height:70px;display:flex;align-items:center;justify-content:space-between}
+    .brand{color:var(--primary);font-weight:800;text-decoration:none;font-size:1.05rem;display:flex;gap:.5rem;align-items:center}
+    .controls{display:flex;gap:.5rem;align-items:center}
+    .btn{background:var(--surface);border:1px solid var(--border);padding:.55rem .9rem;border-radius:10px;
+         font-weight:700;color:var(--text);cursor:pointer;transition:transform .08s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+    .icon-btn{width:42px;height:42px;display:grid;place-items:center;padding:0}
+    main{max-width:900px;margin:110px auto 80px;padding:0 1.5rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.25rem;box-shadow:0 8px 22px var(--shadow)}
+    h1{font-size:2.05rem;margin-bottom:.35rem}
+    .updated{display:inline-block;background:var(--surface);border:1px solid var(--border);color:var(--muted);
+             padding:.4rem .7rem;border-radius:10px;margin-top:.35rem}
+    .section{margin-top:1.8rem}
+    .section-title{font-size:1.2rem;font-weight:800;color:var(--primary);display:flex;gap:.55rem;align-items:center;margin-bottom:.5rem}
+    .info{background:var(--surface);border-left:4px solid var(--primary);padding:1rem 1.2rem;border-radius:12px;margin-top:.8rem}
+    ul{margin:.4rem 0 0 1.15rem}
+    li{margin:.28rem 0}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .footer-links{margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--border);text-align:center}
+    .footer-links a{margin:0 .5rem;font-weight:600}
+    .lang{display:none} .lang.active{display:block}
+    .badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .55rem;border-radius:6px;margin-left:.3rem;vertical-align:middle}
+    .badge.browser{background:#10b981;color:#fff}
+    .badge.server{background:#f59e0b;color:#fff}
+    @media (max-width:768px){.card{padding:1.5rem} h1{font-size:1.7rem}}
+  </style>
+</head>
+<body>
+<nav class="navbar" aria-label="Top navigation">
+    <div class="nav-container">
+      <a class="brand" href="https://kodinitools.com/" aria-label="Zur Startseite / Back to homepage">
+        <i class="fa-solid fa-shield-halved"></i> KodiniTools
+      </a>
+      <div class="controls" role="group" aria-label="Switchers">
+        <button id="btn-de" class="btn active" type="button" aria-pressed="true">DE</button>
+        <button id="btn-en" class="btn" type="button" aria-pressed="false">EN</button>
+        <button id="btn-theme" class="btn icon-btn" type="button" title="Theme wechseln / Toggle theme" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="card">
+
+      <!-- ==================== DEUTSCH ==================== -->
+      <div id="content-de" class="lang active" lang="de">
+        <header>
+          <h1>📄 Datenschutzrichtlinie</h1>
+          <div class="updated">Stand: 31. Januar 2026</div>
+        </header>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-list"></i> Inhaltsübersicht</h2>
+          <ul>
+            <li>Allgemeine Grundsätze</li>
+            <li>Aktualisierungen der Datenschutzrichtlinie</li>
+            <li>Einwilligung</li>
+            <li>Datenverarbeitung: Browser vs. Server</li>
+            <li>Persönlich identifizierbare Informationen</li>
+            <li>Nicht persönlich identifizierbare Informationen</li>
+            <li>Cookies</li>
+            <li>Drittanbieter und externe Dienste</li>
+            <li>Rechtsgrundlagen der Verarbeitung</li>
+            <li>Ihre Rechte (DSGVO)</li>
+            <li>Löschung von Daten</li>
+            <li>Kontaktinformationen</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> 1. Allgemeine Grundsätze</h2>
+          <p>Diese Datenschutzrichtlinie definiert die Erfassung, Nutzung und Speicherung von Informationen (im Folgenden als „Informationen" bezeichnet) sowie sämtlicher durch Ihre Nutzung unserer Website kodinitools.com (im Folgenden „Website") und der damit verbundenen Angebote (im Folgenden „Dienstleistungen") generierten Daten.</p>
+          
+          <p style="margin-top:.8rem">Wir versichern, dass wir Ihre Informationen oder Daten weder verkaufen noch vermieten oder sie unbefugten Dritten zur Verfügung stellen. Die gesammelten Informationen und Daten werden lediglich für interne Zwecke genutzt oder, soweit erforderlich, zur Bereitstellung der angebotenen Dienstleistungen verwendet.</p>
+
+          <p style="margin-top:.8rem">In einigen Fällen können wir jedoch aufgrund gesetzlicher Bestimmungen oder behördlicher Anfragen verpflichtet sein, Informationen oder Teile davon mit autorisierten Stellen zu teilen. Eine Weitergabe von Informationen erfolgt in guten Treuen, wenn wir gesetzlich dazu verpflichtet sind, z. B. um auf Rechtsstreitigkeiten zu reagieren, unsere Rechte zu wahren, die Sicherheit anderer oder Ihre eigene Sicherheit zu gewährleisten, Betrug zu bekämpfen oder andere legitime Interessen in Bezug auf die Gewährleistung unserer Dienstleistungen zu fördern.</p>
+
+          <p style="margin-top:.8rem">Die Informationen, die wir über Benutzer erfassen, werden in zwei Kategorien eingeteilt: persönlich identifizierbare Informationen und nicht persönlich identifizierbare Informationen, abhängig davon, ob die Informationen eindeutig einer Person zugeordnet werden können.</p>
+
+          <p style="margin-top:.8rem">Diese Richtlinie ist seit dem 31. Januar 2026 wirksam.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-pen-to-square"></i> 2. Aktualisierungen der Datenschutzrichtlinie</h2>
+          <p>Wir behalten uns vor, diese Datenschutzrichtlinie jederzeit und ohne vorherige Information zu ändern. Die jeweils aktuelle Version mit dem Gültigkeitsdatum ist über die Website abrufbar. Wir empfehlen, die Datenschutzrichtlinie regelmäßig durchzulesen, um über eventuelle Änderungen informiert zu bleiben.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-user-check"></i> 3. Einwilligung</h2>
+          <p>Durch die Nutzung dieser Website stimmen Sie der Verarbeitung Ihrer Informationen und Daten gemäß den Bedingungen dieser Datenschutzrichtlinie zu. Unsere Dienstleistungen sind für ein allgemeines Publikum ausgelegt und richten sich nicht speziell an Minderjährige.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-microchip"></i> 4. Datenverarbeitung: Browser vs. Server</h2>
+          <p>Unsere Tools sind transparent gekennzeichnet, um Ihnen zu zeigen, wo Ihre Daten verarbeitet werden:</p>
+          
+          <div class="info">
+            <p><strong><span class="badge browser">Browser</span> Client-seitige Verarbeitung</strong><br>
+            Diese Tools verarbeiten Ihre Dateien ausschließlich lokal in Ihrem Browser. Ihre Daten verlassen Ihr Gerät nicht und werden nicht auf unsere Server übertragen. Wir haben keinen Zugriff auf diese Inhalte.</p>
+            
+            <p style="margin-top:.8rem"><strong><span class="badge server">Server</span> Server-seitige Verarbeitung</strong><br>
+            Einige Tools erfordern eine serverseitige Verarbeitung (z. B. für komplexe Konvertierungen). In diesen Fällen werden Ihre Dateien temporär auf unsere Server (Hostinger, EU) hochgeladen, verarbeitet und nach maximal 12 Stunden automatisch gelöscht.</p>
+          </div>
+          
+          <p style="margin-top:.8rem">Auf der Startseite und bei jedem Tool ist klar ersichtlich, welche Verarbeitungsart verwendet wird.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-user-shield"></i> 5. Persönlich identifizierbare Informationen</h2>
+          <p>Für die Nutzung unserer Dienste ist keine Registrierung erforderlich. Wir erfassen keine persönlich identifizierbaren Daten wie Ihre IP-Adresse oder vergleichbare Informationen, die allein oder in Kombination mit anderen Daten Rückschlüsse auf Ihre Identität zulassen könnten.</p>
+
+          <p style="margin-top:.8rem">Sollten Sie uns per E-Mail kontaktieren, behalten wir uns vor, die Kommunikation einschließlich Ihrer Anfragen, Beschwerden oder Rückmeldungen zu speichern, um angemessen auf Ihre Nachricht reagieren zu können. Ihre E-Mail-Adresse wird ausschließlich zur Beantwortung von Anfragen verwendet. Wir speichern Ihre E-Mail-Adresse nicht dauerhaft und nutzen sie nicht für andere Zwecke.</p>
+
+          <p style="margin-top:.8rem">Darüber hinaus setzen wir technische und organisatorische Sicherheitsmaßnahmen ein, um den Schutz Ihrer übermittelten Informationen zu gewährleisten und unbefugten Zugriff, Verlust oder Missbrauch zu verhindern. Unsere Website verwendet SSL-Verschlüsselung als zusätzlichen Sicherheitsmechanismus.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-database"></i> 6. Nicht persönlich identifizierbare Informationen</h2>
+          <p>Bestimmte nicht personenbezogene Informationen oder Daten können während Ihrer Nutzung unserer Dienste erhoben werden. Diese Daten können von Ihnen hochgeladen oder über Drittanbieter wie Google Drive oder Dropbox bereitgestellt werden.</p>
+
+          <p style="margin-top:.8rem">Wir verwenden diese Daten ausschließlich zur Erbringung der angeforderten Dienste und zur Verbesserung der Nutzererfahrung. Es erfolgt keine Einsichtnahme oder gezielte Überwachung der bereitgestellten Daten. Die Verarbeitung Ihrer Informationen erfolgt vollständig automatisiert ohne menschliches Eingreifen.</p>
+
+          <p style="margin-top:.8rem">Wenn Sie Daten über Drittanbieter hochladen, erteilen Sie uns die Erlaubnis, diese Daten ausschließlich im Rahmen des angeforderten Dienstes zu lesen, herunterzuladen oder zu verarbeiten. Nach erfolgreicher Nutzung der Dienste löschen wir alle gespeicherten Daten automatisch innerhalb von 12 Stunden.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-cookie-bite"></i> 7. Cookies</h2>
+          <p>Die Website verwendet Cookies, um Funktionalität bereitzustellen und die Nutzererfahrung kontinuierlich zu verbessern. Wir setzen ausschließlich technisch notwendige Cookies ein, um Ihre Einstellungen (wie Sprache und Theme) zu speichern.</p>
+
+          <p style="margin-top:.8rem">Um Cookies zu deaktivieren oder deren Nutzung zu kontrollieren, können Sie Ihre Browsereinstellungen entsprechend anpassen.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-plug"></i> 8. Drittanbieter und externe Dienste</h2>
+          <p>Wir nutzen folgende externe Dienste:</p>
+          
+          <ul>
+            <li><strong>Google Search Console:</strong> Zur Analyse der Suchmaschinenleistung unserer Website. Dabei werden aggregierte, anonymisierte Daten über Suchanfragen und Klicks erfasst. Es werden keine personenbezogenen Daten an uns übermittelt. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a></li>
+            <li><strong>Hostinger (EU):</strong> Hosting-Anbieter für serverseitige Tool-Verarbeitung. Server befinden sich in der EU. Weitere Informationen: <a href="https://www.hostinger.de/datenschutzrichtlinie" target="_blank" rel="noopener">Hostinger Datenschutzerklärung</a></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-scale-balanced"></i> 9. Rechtsgrundlagen der Verarbeitung</h2>
+          <p>Die Verarbeitung Ihrer Daten erfolgt auf Basis folgender Rechtsgrundlagen gemäß Art. 6 DSGVO:</p>
+          
+          <ul>
+            <li><strong>Art. 6 Abs. 1 lit. a (Einwilligung):</strong> Für optionale Funktionen, die Ihre ausdrückliche Zustimmung erfordern.</li>
+            <li><strong>Art. 6 Abs. 1 lit. b (Vertragserfüllung):</strong> Zur Bereitstellung der von Ihnen angeforderten Dienste (z. B. Dateikonvertierung).</li>
+            <li><strong>Art. 6 Abs. 1 lit. f (Berechtigtes Interesse):</strong> Zur Gewährleistung der Websitesicherheit, Betrugsprävention und Verbesserung unserer Dienste.</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-gavel"></i> 10. Ihre Rechte (DSGVO)</h2>
+          <p>Gemäß der Datenschutz-Grundverordnung (DSGVO) haben Sie folgende Rechte:</p>
+          
+          <ul>
+            <li><strong>Auskunftsrecht (Art. 15):</strong> Sie können Auskunft über Ihre bei uns verarbeiteten Daten verlangen.</li>
+            <li><strong>Recht auf Berichtigung (Art. 16):</strong> Sie können die Korrektur unrichtiger Daten verlangen.</li>
+            <li><strong>Recht auf Löschung (Art. 17):</strong> Sie können die Löschung Ihrer Daten verlangen, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.</li>
+            <li><strong>Recht auf Einschränkung (Art. 18):</strong> Sie können die Einschränkung der Verarbeitung Ihrer Daten verlangen.</li>
+            <li><strong>Recht auf Datenübertragbarkeit (Art. 20):</strong> Sie können verlangen, dass Ihre Daten in einem strukturierten, gängigen Format übermittelt werden.</li>
+            <li><strong>Widerspruchsrecht (Art. 21):</strong> Sie können der Verarbeitung Ihrer Daten aus berechtigtem Interesse widersprechen.</li>
+          </ul>
+          
+          <div class="info">
+            <p><strong>Beschwerderecht:</strong> Sie haben das Recht, eine Beschwerde bei einer Datenschutz-Aufsichtsbehörde einzureichen, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen die DSGVO verstößt.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-trash"></i> 11. Löschung von Daten</h2>
+          <p>Alle von Ihnen bereitgestellten Daten werden nur so lange gespeichert, wie es für die Erbringung des Dienstes erforderlich ist. Bei serverseitiger Verarbeitung erfolgt die automatische Löschung nach maximal 12 Stunden. Bei browserseitiger Verarbeitung verbleiben Ihre Daten ausschließlich auf Ihrem Gerät.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-envelope"></i> 12. Kontaktinformationen</h2>
+          <p>Bei Fragen zu dieser Datenschutzrichtlinie oder wenn Sie Ihre Rechte gemäß DSGVO ausüben möchten, kontaktieren Sie uns bitte über die auf der Website veröffentlichten Kommunikationskanäle.</p>
+        </section>
+
+        <div class="footer-links">
+          <a href="https://kodinitools.com/kontaktformular/">Kontakt</a>
+        </div>
+      </div>
+
+      <!-- ==================== ENGLISH ==================== -->
+      <div id="content-en" class="lang" lang="en">
+        <header>
+          <h1>📄 Privacy Policy</h1>
+          <div class="updated">Last updated: January 31, 2026</div>
+        </header>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-list"></i> Table of Contents</h2>
+          <ul>
+            <li>General Principles</li>
+            <li>Privacy Policy Updates</li>
+            <li>Consent</li>
+            <li>Data Processing: Browser vs. Server</li>
+            <li>Personally Identifiable Information</li>
+            <li>Non-Personally Identifiable Information</li>
+            <li>Cookies</li>
+            <li>Third-Party Services</li>
+            <li>Legal Basis for Processing</li>
+            <li>Your Rights (GDPR)</li>
+            <li>Data Deletion</li>
+            <li>Contact Information</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> 1. General Principles</h2>
+          <p>This Privacy Policy defines the collection, use, and storage of information (hereinafter referred to as "Information") as well as all data generated by your use of our website kodinitools.com (hereinafter "Website") and related offerings (hereinafter "Services").</p>
+          
+          <p style="margin-top:.8rem">We assure you that we neither sell nor rent your information or data, nor do we make it available to unauthorized third parties. The collected information and data are only used for internal purposes or, as necessary, to provide the offered services.</p>
+
+          <p style="margin-top:.8rem">In some cases, however, we may be obligated by law or government requests to share information or parts thereof with authorized authorities. Disclosure of information is made in good faith when we are legally required to do so, for example, to respond to legal disputes, protect our rights, ensure the safety of others or your own safety, combat fraud, or promote other legitimate interests in relation to ensuring our services.</p>
+
+          <p style="margin-top:.8rem">The information we collect about users is divided into two categories: personally identifiable information and non-personally identifiable information, depending on whether the information can be uniquely attributed to a person.</p>
+
+          <p style="margin-top:.8rem">This policy is effective as of January 31, 2026.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-pen-to-square"></i> 2. Privacy Policy Updates</h2>
+          <p>We reserve the right to change this Privacy Policy at any time without prior notice. The current version with the effective date is available via the website. We recommend reading the Privacy Policy regularly to stay informed about any changes.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-user-check"></i> 3. Consent</h2>
+          <p>By using this website, you consent to the processing of your information and data in accordance with the terms of this Privacy Policy. Our services are designed for a general audience and are not specifically directed at minors.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-microchip"></i> 4. Data Processing: Browser vs. Server</h2>
+          <p>Our tools are transparently labeled to show you where your data is processed:</p>
+          
+          <div class="info">
+            <p><strong><span class="badge browser">Browser</span> Client-Side Processing</strong><br>
+            These tools process your files exclusively locally in your browser. Your data does not leave your device and is not transmitted to our servers. We have no access to this content.</p>
+            
+            <p style="margin-top:.8rem"><strong><span class="badge server">Server</span> Server-Side Processing</strong><br>
+            Some tools require server-side processing (e.g., for complex conversions). In these cases, your files are temporarily uploaded to our servers (Hostinger, EU), processed, and automatically deleted within a maximum of 12 hours.</p>
+          </div>
+          
+          <p style="margin-top:.8rem">The homepage and each tool clearly indicate which processing type is used.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-user-shield"></i> 5. Personally Identifiable Information</h2>
+          <p>No registration is required to use our services. We do not collect personally identifiable data, such as your IP address or comparable information that, alone or in combination with other data, could allow conclusions about your identity.</p>
+
+          <p style="margin-top:.8rem">If you contact us via email, we reserve the right to store the communication, including your inquiries, complaints, or feedback, in order to respond to your message appropriately. Your email address is used exclusively to respond to inquiries. We do not permanently store your email address or use it for other purposes.</p>
+
+          <p style="margin-top:.8rem">Furthermore, we implement technical and organizational security measures to ensure the protection of your transmitted information and prevent unauthorized access, loss, or misuse. In addition, our website uses SSL encryption as an additional security mechanism.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-database"></i> 6. Non-Personally Identifiable Information</h2>
+          <p>Certain non-personal information or data may be collected during your use of our services. This data may be uploaded by you or provided through third-party providers such as Google Drive or Dropbox.</p>
+
+          <p style="margin-top:.8rem">We use this data exclusively to provide the requested services and improve user experience. No inspection or targeted monitoring of the provided data occurs. The processing of your information is fully automated without human intervention.</p>
+
+          <p style="margin-top:.8rem">When you upload data via third-party providers, you grant us permission to read, download, or process this data exclusively within the scope of the requested service. After successful use of the services, we automatically delete all stored data within 12 hours.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-cookie-bite"></i> 7. Cookies</h2>
+          <p>The website uses cookies to provide functionality and continuously improve user experience. We only use technically necessary cookies to save your settings (such as language and theme).</p>
+
+          <p style="margin-top:.8rem">To disable cookies or control their use, you can adjust your browser settings accordingly.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-plug"></i> 8. Third-Party Services</h2>
+          <p>We use the following external services:</p>
+          
+          <ul>
+            <li><strong>Google Search Console:</strong> To analyze our website's search engine performance. Aggregated, anonymized data about search queries and clicks is collected. No personal data is transmitted to us. More information: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+            <li><strong>Hostinger (EU):</strong> Hosting provider for server-side tool processing. Servers are located in the EU. More information: <a href="https://www.hostinger.com/privacy-policy" target="_blank" rel="noopener">Hostinger Privacy Policy</a></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-scale-balanced"></i> 9. Legal Basis for Processing</h2>
+          <p>Your data is processed based on the following legal grounds according to Art. 6 GDPR:</p>
+          
+          <ul>
+            <li><strong>Art. 6(1)(a) (Consent):</strong> For optional features that require your explicit consent.</li>
+            <li><strong>Art. 6(1)(b) (Contract Performance):</strong> To provide the services you request (e.g., file conversion).</li>
+            <li><strong>Art. 6(1)(f) (Legitimate Interest):</strong> To ensure website security, fraud prevention, and improvement of our services.</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-gavel"></i> 10. Your Rights (GDPR)</h2>
+          <p>Under the General Data Protection Regulation (GDPR), you have the following rights:</p>
+          
+          <ul>
+            <li><strong>Right of Access (Art. 15):</strong> You can request information about your data processed by us.</li>
+            <li><strong>Right to Rectification (Art. 16):</strong> You can request correction of inaccurate data.</li>
+            <li><strong>Right to Erasure (Art. 17):</strong> You can request deletion of your data, provided no legal retention obligations exist.</li>
+            <li><strong>Right to Restriction (Art. 18):</strong> You can request restriction of the processing of your data.</li>
+            <li><strong>Right to Data Portability (Art. 20):</strong> You can request that your data be transmitted in a structured, commonly used format.</li>
+            <li><strong>Right to Object (Art. 21):</strong> You can object to the processing of your data based on legitimate interest.</li>
+          </ul>
+          
+          <div class="info">
+            <p><strong>Right to Complain:</strong> You have the right to lodge a complaint with a data protection supervisory authority if you believe that the processing of your data violates the GDPR.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-trash"></i> 11. Data Deletion</h2>
+          <p>All data you provide is stored only as long as necessary for the provision of the service. For server-side processing, automatic deletion occurs within a maximum of 12 hours. For browser-side processing, your data remains exclusively on your device.</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title"><i class="fa-solid fa-envelope"></i> 12. Contact Information</h2>
+          <p>If you have questions about this Privacy Policy or wish to exercise your rights under the GDPR, please contact us through the communication channels published on the website.</p>
+        </section>
+
+        <div class="footer-links">
+          <a href="https://kodinitools.com/kontaktformular/">Contact</a>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    // --- Persisted Theme ---
+    const root = document.documentElement;
+    const btnTheme = document.getElementById('btn-theme');
+    const themeIcon = document.getElementById('theme-icon');
+    const savedTheme = localStorage.getItem('kt-theme');
+    if(savedTheme){ root.setAttribute('data-theme', savedTheme); if(savedTheme==='dark'){ themeIcon.classList.replace('fa-moon','fa-sun'); } }
+    btnTheme.addEventListener('click', ()=>{
+      const cur = root.getAttribute('data-theme') || 'light';
+      const next = cur === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('kt-theme', next);
+      if(next==='dark'){ themeIcon.classList.replace('fa-moon','fa-sun'); } else { themeIcon.classList.replace('fa-sun','fa-moon'); }
+    });
+
+    // --- Language Switch ---
+    const btnDe=document.getElementById('btn-de');
+    const btnEn=document.getElementById('btn-en');
+    const de=document.getElementById('content-de');
+    const en=document.getElementById('content-en');
+
+    function setLang(lang){
+      if(lang==='de'){
+        de.classList.add('active'); en.classList.remove('active');
+        btnDe.classList.add('active'); btnEn.classList.remove('active');
+        btnDe.setAttribute('aria-pressed','true'); btnEn.setAttribute('aria-pressed','false');
+        document.documentElement.lang='de';
+        localStorage.setItem('kt-lang','de');
+      } else {
+        en.classList.add('active'); de.classList.remove('active');
+        btnEn.classList.add('active'); btnDe.classList.remove('active');
+        btnEn.setAttribute('aria-pressed','true'); btnDe.setAttribute('aria-pressed','false');
+        document.documentElement.lang='en';
+        localStorage.setItem('kt-lang','en');
+      }
+    }
+
+    const savedLang = localStorage.getItem('kt-lang');
+    if(savedLang){ setLang(savedLang); }
+
+    btnDe.addEventListener('click', ()=>setLang('de'));
+    btnEn.addEventListener('click', ()=>setLang('en'));
+  </script>
+</body>
+</html>
