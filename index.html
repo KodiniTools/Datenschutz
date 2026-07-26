@@ -450,7 +450,7 @@
     // ==========================================================
     //  Phase 3: Runtime – externes Event empfangen (kein Reload)
     // ==========================================================
-    window.addEventListener('language-changed', function (e) {
+    function onLanguageChanged(e) {
       if (_suppressDispatch) return;
 
       var lang = e && e.detail && e.detail.lang;
@@ -460,7 +460,42 @@
       applyLocale(lang);
       setVueLocale(lang);
       _suppressDispatch = false;
-    });
+    }
+
+    // Manche SSI-Nav-Varianten dispatchen das Event auf 'document'
+    // statt 'window' (nicht-bubbelnd) – daher auf beiden lauschen.
+    window.addEventListener('language-changed', onLanguageChanged);
+    document.addEventListener('language-changed', onLanguageChanged);
+
+    // ==========================================================
+    //  Phase 4: Fallback – direkt auf Klick der Nav-Sprach-Buttons
+    //  reagieren. Diese statische SSI-Seite ist nicht Teil der
+    //  Vue-App; falls die Nav kein 'language-changed'-Event an uns
+    //  liefert, würde die Sprache sonst erst nach Reload wechseln.
+    //  Nav-Buttons tragen data-lang="de|en" (Wert = Ziel-Locale).
+    //  Capture-Phase, damit ein stopPropagation der Nav uns nicht
+    //  übergeht.
+    // ==========================================================
+    document.addEventListener('click', function (e) {
+      var trigger = e.target && e.target.closest
+        ? e.target.closest('[data-lang]')
+        : null;
+      if (!trigger) return;
+
+      var lang = trigger.getAttribute('data-lang');
+      if (SUPPORTED.indexOf(lang) === -1) return;
+      if (lang === getCurrentLocale()) return;
+
+      applyLocale(lang);
+      setVueLocale(lang);
+
+      // Andere SSI-Partials (Footer, Cookie-Banner) synchronisieren.
+      _suppressDispatch = true;
+      window.dispatchEvent(new CustomEvent('language-changed', {
+        detail: { lang: lang }
+      }));
+      _suppressDispatch = false;
+    }, true);
 
   })();
   </script>
