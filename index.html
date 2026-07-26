@@ -486,7 +486,6 @@
   (function () {
     'use strict';
 
-    var _suppressDispatch = false;
     var LOCALE_KEY = 'locale';
     var SUPPORTED  = ['de', 'en'];
     var FALLBACK   = 'de';
@@ -524,7 +523,7 @@
      *  – data-lang-de="…" / data-lang-en="…"  → textContent setzen
      *
      * Sichtbarkeit (display) wird NICHT gesteuert – SSI-Partials
-     * (Footer, Cookie-Banner) reagieren selbst auf 'language-changed'.
+     * (Nav, Footer, Cookie-Banner) reagieren selbst auf 'locale-changed'.
      * Nav-Buttons mit data-lang="de|en" bleiben dadurch sichtbar.
      */
     function updateDataLangElements(lang) {
@@ -540,26 +539,6 @@
       if (!de || !en) return;
       de.classList.toggle('active', lang === 'de');
       en.classList.toggle('active', lang === 'en');
-    }
-
-    /**
-     * Aktiven Zustand der SSI-Nav-Sprach-Buttons (data-lang="de|en")
-     * mit der aktuellen Sprache synchronisieren. Diese statische Seite
-     * ist nicht Teil der Vue-App, daher aktualisiert die Nav ihre
-     * Markierung hier nicht selbst – sonst bliebe z. B. "EN" dauerhaft
-     * hervorgehoben.
-     */
-    function updateLangButtons(lang) {
-      document.querySelectorAll('[data-lang]').forEach(function (btn) {
-        var isActive = btn.getAttribute('data-lang') === lang;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        if (isActive) {
-          btn.setAttribute('aria-current', 'true');
-        } else {
-          btn.removeAttribute('aria-current');
-        }
-      });
     }
 
     /** Vue-i18n Locale live setzen (Composition- & Options-API) */
@@ -580,7 +559,6 @@
       setDocumentLang(lang);
       updateDataLangElements(lang);
       toggleLocalContent(lang);
-      updateLangButtons(lang);
     }
 
     // ==========================================================
@@ -595,69 +573,31 @@
     document.addEventListener('DOMContentLoaded', function () {
       updateDataLangElements(currentLang);
       toggleLocalContent(currentLang);
-      updateLangButtons(currentLang);
       setVueLocale(currentLang);
-
-      // Nach eigenen DOMContentLoaded-Handlern der SSI-Nav erneut
-      // korrigieren, falls diese die Button-Markierung überschreibt.
-      setTimeout(function () { updateLangButtons(currentLang); }, 0);
-
-      _suppressDispatch = true;
-      window.dispatchEvent(new CustomEvent('language-changed', {
-        detail: { lang: currentLang }
-      }));
-      _suppressDispatch = false;
     });
 
     // ==========================================================
-    //  Phase 3: Runtime – externes Event empfangen (kein Reload)
+    //  Phase 3: Runtime – Sprachwechsel der SSI-Nav übernehmen
+    //  (kein Reload).
+    //
+    //  Die Nav (/partials/nav.html) ist die alleinige Quelle für den
+    //  Sprachwechsel: Sie setzt localStorage['locale'], markiert ihre
+    //  eigenen Buttons, übersetzt ihre Labels und feuert danach
+    //    CustomEvent('locale-changed', { detail: { locale } }).
+    //  Diese Seite hört nur auf dieses Event und schaltet ihren
+    //  Inhalt (content-de / content-en) sowie Vue-i18n um – sie greift
+    //  bewusst NICHT in localStorage oder die Nav-Buttons ein, damit
+    //  die eigene Logik der Nav nicht gestört wird.
     // ==========================================================
-    function onLanguageChanged(e) {
-      if (_suppressDispatch) return;
-
-      var lang = e && e.detail && e.detail.lang;
+    window.addEventListener('locale-changed', function (e) {
+      var lang = e && e.detail && e.detail.locale;
       if (!lang || SUPPORTED.indexOf(lang) === -1) return;
 
-      _suppressDispatch = true;
-      applyLocale(lang);
+      setDocumentLang(lang);
+      updateDataLangElements(lang);
+      toggleLocalContent(lang);
       setVueLocale(lang);
-      _suppressDispatch = false;
-    }
-
-    // Manche SSI-Nav-Varianten dispatchen das Event auf 'document'
-    // statt 'window' (nicht-bubbelnd) – daher auf beiden lauschen.
-    window.addEventListener('language-changed', onLanguageChanged);
-    document.addEventListener('language-changed', onLanguageChanged);
-
-    // ==========================================================
-    //  Phase 4: Fallback – direkt auf Klick der Nav-Sprach-Buttons
-    //  reagieren. Diese statische SSI-Seite ist nicht Teil der
-    //  Vue-App; falls die Nav kein 'language-changed'-Event an uns
-    //  liefert, würde die Sprache sonst erst nach Reload wechseln.
-    //  Nav-Buttons tragen data-lang="de|en" (Wert = Ziel-Locale).
-    //  Capture-Phase, damit ein stopPropagation der Nav uns nicht
-    //  übergeht.
-    // ==========================================================
-    document.addEventListener('click', function (e) {
-      var trigger = e.target && e.target.closest
-        ? e.target.closest('[data-lang]')
-        : null;
-      if (!trigger) return;
-
-      var lang = trigger.getAttribute('data-lang');
-      if (SUPPORTED.indexOf(lang) === -1) return;
-      if (lang === getCurrentLocale()) return;
-
-      applyLocale(lang);
-      setVueLocale(lang);
-
-      // Andere SSI-Partials (Footer, Cookie-Banner) synchronisieren.
-      _suppressDispatch = true;
-      window.dispatchEvent(new CustomEvent('language-changed', {
-        detail: { lang: lang }
-      }));
-      _suppressDispatch = false;
-    }, true);
+    });
 
   })();
   </script>
