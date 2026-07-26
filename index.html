@@ -542,6 +542,26 @@
       en.classList.toggle('active', lang === 'en');
     }
 
+    /**
+     * Aktiven Zustand der SSI-Nav-Sprach-Buttons (data-lang="de|en")
+     * mit der aktuellen Sprache synchronisieren. Diese statische Seite
+     * ist nicht Teil der Vue-App, daher aktualisiert die Nav ihre
+     * Markierung hier nicht selbst – sonst bliebe z. B. "EN" dauerhaft
+     * hervorgehoben.
+     */
+    function updateLangButtons(lang) {
+      document.querySelectorAll('[data-lang]').forEach(function (btn) {
+        var isActive = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        if (isActive) {
+          btn.setAttribute('aria-current', 'true');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
     /** Vue-i18n Locale live setzen (Composition- & Options-API) */
     function setVueLocale(lang) {
       var i18n = window.__VUE_I18N_SYMBOL__;
@@ -560,6 +580,7 @@
       setDocumentLang(lang);
       updateDataLangElements(lang);
       toggleLocalContent(lang);
+      updateLangButtons(lang);
     }
 
     // ==========================================================
@@ -574,7 +595,12 @@
     document.addEventListener('DOMContentLoaded', function () {
       updateDataLangElements(currentLang);
       toggleLocalContent(currentLang);
+      updateLangButtons(currentLang);
       setVueLocale(currentLang);
+
+      // Nach eigenen DOMContentLoaded-Handlern der SSI-Nav erneut
+      // korrigieren, falls diese die Button-Markierung überschreibt.
+      setTimeout(function () { updateLangButtons(currentLang); }, 0);
 
       _suppressDispatch = true;
       window.dispatchEvent(new CustomEvent('language-changed', {
