@@ -32,11 +32,18 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | `SSH_USER`    | SSH-Benutzer, dem der Webroot gehört                                 |
 | `SSH_KEY`     | Kompletter **privater** Key aus `~/.ssh/gh_deploy` (inkl. Header)   |
 | `SSH_PORT`    | SSH-Port (optional, Standard `22`)                                  |
-| `DEPLOY_PATH` | Webroot **ohne** `/datenschutz`, z. B. `/var/www/html`             |
+| `DEPLOY_PATH` | Webroot **ohne** `/datenschutz`: `/var/www/kodinitools.com`         |
 
-> `DEPLOY_PATH` ist das Webroot-Verzeichnis. Der Workflow hängt `/datenschutz/`
-> selbst an. Beispiel: Webroot `/var/www/html` → Seite landet unter
-> `/var/www/html/datenschutz/index.html`.
+> `DEPLOY_PATH` ist das Webroot-Verzeichnis (aus der nginx-Config:
+> `root /var/www/kodinitools.com;`). Der Workflow hängt `/datenschutz/`
+> selbst an → die Seite landet unter
+> `/var/www/kodinitools.com/datenschutz/index.html`.
+>
+> **Kein nginx-Eingriff nötig:** Der Server liefert `/datenschutz/` über die
+> Default-Auslieferung (`root` + `index index.html`) automatisch aus, und
+> `ssi on;` bindet die Partials (nav/footer/cookie-banner) serverseitig ein.
+> Deshalb überträgt der Workflow bewusst nur `index.html`; Partials, Fonts
+> und Favicons liegen bereits site-weit im Webroot.
 
 ### 3. Deployen
 
