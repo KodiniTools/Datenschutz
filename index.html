@@ -189,6 +189,7 @@
     a{color:var(--primary);text-decoration:none}
     a:hover{text-decoration:underline}
     .lang{display:none} .lang.active{display:block}
+    .btn.small{padding:.2rem .6rem;font-size:.8rem;margin-left:.5rem;vertical-align:middle;border-radius:8px}
 @media (max-width:768px){.card{padding:1.5rem} h1{font-size:1.4rem}}
   </style>
 </head>
@@ -230,7 +231,7 @@
           <div class="info">
             <p><strong>Dinko Ramic</strong><br>
             Uster, Schweiz<br>
-            E-Mail: <a href="mailto:kodinitools@kodinitools.com">kodinitools@kodinitools.com</a><br>
+            E-Mail: <a class="mail-link" href="mailto:kodinitools@kodinitools.com">kodinitools@kodinitools.com</a><button type="button" class="btn small copy-mail" data-copy="kodinitools@kodinitools.com" data-lang-de="Kopieren" data-lang-en="Copy" aria-label="E-Mail-Adresse kopieren">Kopieren</button><br>
             Website: <a href="https://kodinitools.com/">kodinitools.com</a></p>
           </div>
 
@@ -382,7 +383,7 @@
           <div class="info">
             <p><strong>Dinko Ramic</strong><br>
             Uster, Switzerland<br>
-            Email: <a href="mailto:kodinitools@kodinitools.com">kodinitools@kodinitools.com</a><br>
+            Email: <a class="mail-link" href="mailto:kodinitools@kodinitools.com">kodinitools@kodinitools.com</a><button type="button" class="btn small copy-mail" data-copy="kodinitools@kodinitools.com" data-lang-de="Kopieren" data-lang-en="Copy" aria-label="Copy email address">Copy</button><br>
             Website: <a href="https://kodinitools.com/">kodinitools.com</a></p>
           </div>
 
@@ -626,6 +627,59 @@
       setVueLocale(lang);
     });
 
+  })();
+  </script>
+
+  <!-- ============================================================
+       Kontakt-Link: mailto robust öffnen + Adresse kopieren
+       Site-weite Klick-Handler (Nav/SPA) fangen Anker-Klicks teils ab;
+       der Handler hier stoppt das Bubbling und öffnet mailto: explizit.
+       ============================================================ -->
+  <script>
+  (function () {
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('a.mail-link').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          window.location.href = a.getAttribute('href');
+        });
+      });
+
+      document.querySelectorAll('button.copy-mail').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var addr  = btn.getAttribute('data-copy') || '';
+          var lang  = (document.documentElement.lang || 'de').slice(0, 2);
+          var label = btn.getAttribute('data-lang-' + lang) || btn.textContent;
+          var done  = lang === 'en' ? 'Copied ✓' : 'Kopiert ✓';
+          var fail  = lang === 'en' ? 'Copy failed' : 'Kopieren fehlgeschlagen';
+
+          function feedback(text) {
+            btn.textContent = text;
+            window.setTimeout(function () { btn.textContent = label; }, 2000);
+          }
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(addr).then(function () { feedback(done); },
+                                                     function () { feedback(fail); });
+            return;
+          }
+          // Fallback für ältere Browser / unsichere Kontexte
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = addr; ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            feedback(ok ? done : fail);
+          } catch (err) { feedback(fail); }
+        });
+      });
+    });
   })();
   </script>
 
