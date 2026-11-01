@@ -46,10 +46,10 @@
   <meta name="twitter:image:alt" content="KodiniTools" />
 
   <!-- ============================================================
-       hreflang – zweisprachige Seite (gleiche URL, Sprach-Toggle)
+       hreflang – Deutsch ohne Parameter, Englisch mit ?lang=en
        ============================================================ -->
   <link rel="alternate" hreflang="de" href="https://kodinitools.com/datenschutz/" />
-  <link rel="alternate" hreflang="en" href="https://kodinitools.com/datenschutz/" />
+  <link rel="alternate" hreflang="en" href="https://kodinitools.com/datenschutz/?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://kodinitools.com/datenschutz/" />
 
   <!-- ============================================================
@@ -526,17 +526,34 @@
     //  Helpers
     // ==========================================================
 
-    /** Locale aus localStorage lesen, Fallback auf Browser-Sprache */
+    var PAGE_URL = 'https://kodinitools.com/datenschutz/';
+
+    /**
+     * Startsprache: ?lang=de|en (englische URL, hreflang-Ziel), dann
+     * localStorage, sonst Deutsch. Kein Rückgriff auf die Browser-Sprache:
+     * die URL ohne Parameter ist die deutsche Fassung (hreflang de/x-default).
+     */
     function getCurrentLocale() {
+      var fromUrl = new URLSearchParams(location.search).get('lang');
+      if (fromUrl && SUPPORTED.indexOf(fromUrl) !== -1) return fromUrl;
       var stored = localStorage.getItem(LOCALE_KEY);
       if (stored && SUPPORTED.indexOf(stored) !== -1) return stored;
-      var nav = (navigator.language || '').slice(0, 2).toLowerCase();
-      return SUPPORTED.indexOf(nav) !== -1 ? nav : FALLBACK;
+      return FALLBACK;
     }
 
-    /** document.lang + <meta http-equiv="content-language"> setzen */
+    /** Canonical und og:url je Sprache (EN = ?lang=en) */
+    function setLocaleUrls(lang) {
+      var url = lang === 'en' ? PAGE_URL + '?lang=en' : PAGE_URL;
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', url);
+      var ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', url);
+    }
+
+    /** document.lang + <meta http-equiv="content-language"> + Canonical setzen */
     function setDocumentLang(lang) {
       document.documentElement.lang = lang;
+      setLocaleUrls(lang);
       var meta = document.querySelector('meta[http-equiv="content-language"]');
       if (!meta) {
         meta = document.createElement('meta');
