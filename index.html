@@ -286,7 +286,7 @@
           <h2 class="section-title">7. Cookies und lokale Speicherung</h2>
           <p>Unsere Website verwendet ausschließlich technisch notwendige Cookies bzw. lokale Speicherfunktionen Ihres Browsers (LocalStorage), um nutzerseitige Einstellungen (wie Theme-Auswahl oder Spracheinstellungen) für Ihren nächsten Besuch zu sichern.</p>
 
-          <p style="margin-top:.8rem">Wir setzen keine Marketing- oder Tracking-Cookies von Drittanbietern ein. Sie können das Setzen von Cookies in den Einstellungen Ihres Webbrowsers jederzeit deaktivieren oder bestehende Cookies löschen.</p>
+          <p style="margin-top:.8rem">Wir setzen keine Analyse-, Marketing- oder Tracking-Cookies ein und verwenden weder Google Analytics noch den Google Tag Manager. Ein Cookie-Banner ist daher nicht erforderlich. Sie können das Setzen von Cookies in den Einstellungen Ihres Webbrowsers jederzeit deaktivieren oder bestehende Cookies löschen.</p>
         </section>
 
         <section class="section">
@@ -438,7 +438,7 @@
           <h2 class="section-title">7. Cookies and Local Storage</h2>
           <p>Our website uses only technically necessary cookies or your browser's local storage functions (LocalStorage) to save user-side settings (such as theme selection or language preferences) for your next visit.</p>
 
-          <p style="margin-top:.8rem">We do not use any third-party marketing or tracking cookies. You can disable the setting of cookies or delete existing cookies at any time in your web browser settings.</p>
+          <p style="margin-top:.8rem">We do not use any analytics, marketing or tracking cookies, and we use neither Google Analytics nor Google Tag Manager. A cookie banner is therefore not required. You can disable the setting of cookies or delete existing cookies at any time in your web browser settings.</p>
         </section>
 
         <section class="section">
@@ -568,7 +568,7 @@
      *  – data-lang-de="…" / data-lang-en="…"  → textContent setzen
      *
      * Sichtbarkeit (display) wird NICHT gesteuert – SSI-Partials
-     * (Nav, Footer, Cookie-Banner) reagieren selbst auf 'locale-changed'.
+     * (Nav, Footer) reagieren selbst auf 'locale-changed'.
      * Nav-Buttons mit data-lang="de|en" bleiben dadurch sichtbar.
      */
     function updateDataLangElements(lang) {
@@ -701,6 +701,5 @@
   </script>
 
 <!--#include virtual="/partials/footer.html" -->
-<!--#include virtual="/partials/cookie-banner.html" -->
 </body>
 </html>
