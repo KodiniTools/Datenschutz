@@ -53,3 +53,10 @@ git push origin main
 
 Der Workflow legt `datenschutz/` bei Bedarf an, überträgt `index.html` und
 listet am Ende den Zielordner zur Kontrolle.
+
+## Englische Fassung
+
+`index.en.html` wird aus `index.html` erzeugt: `node scripts/build-en.mjs`.
+Nach jeder Änderung an `index.html` das Skript ausführen und beide Dateien
+committen; der Workflow bricht sonst ab (`--check`). nginx liefert
+`index.en.html` für `/datenschutz/?lang=en` aus.
