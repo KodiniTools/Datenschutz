@@ -1,13 +1,15 @@
 name: Deploy Datenschutz page
 
-# Deployt die Datenschutzseite (index.html) bei jedem Push auf main
-# per rsync über SSH nach <Webroot>/datenschutz/index.html auf den Server.
+# Deployt die Datenschutzseite (index.html + englische Fassung index.en.html)
+# bei jedem Push auf main per rsync über SSH nach <Webroot>/datenschutz/.
 # Manuelles Auslösen ist über "Run workflow" ebenfalls möglich.
 on:
   push:
     branches: [main]
     paths:
       - index.html
+      - index.en.html
+      - scripts/build-en.mjs
       - .github/workflows/deploy.yml
   workflow_dispatch:
 
@@ -21,6 +23,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: index.en.html aktuell?
+        run: node scripts/build-en.mjs --check
 
       - name: SSH-Key einrichten
         run: |
@@ -42,8 +47,8 @@ jobs:
         run: |
           rsync -avz \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT || 22 }}" \
-            index.html \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/datenschutz/index.html"
+            index.html index.en.html \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/datenschutz/"
 
       - name: Ergebnis prüfen
         run: |
